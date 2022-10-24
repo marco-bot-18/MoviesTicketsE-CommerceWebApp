@@ -1,0 +1,61 @@
+﻿@*Define Model*@
+@model IEnumerable<Actor>
+
+@*Define ViewData*@
+@{
+    ViewData["Title"] = "List of Actors";
+}
+
+@*Write Code*@
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <table class="table table-hover">
+            <thead>
+                <tr class="text-center">
+                    <th>@Html.DisplayNameFor(model => model.ProfilePictureURL)</th>
+                    <th>@Html.DisplayNameFor(model => model.FullName)</th>
+                    <th>@Html.DisplayNameFor(model => model.Bio)</th>
+                    @*@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {*@
+                    <th>Actions</th>
+                    @*}*@
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="text-center">
+                        <td class="align-middle">
+                            <img class="rounded-circle" src="@item.ProfilePictureURL" alt="@item.FullName" style="max-width: 150px" />
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.Bio)
+                        </td>
+                        @* @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {*@
+                        <td class="align-middle">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id"><i class="uil uil-edit"></i> Edit</a>
+                                <a class="btn btn-info text-white" asp-controller="Actors" asp-action="Details" asp-route-id="@item.Id"><i class="uil uil-eye"></i> Details </a>
+                                <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id"><i class="uil uil-trash-alt"></i> Delete</a>
+                            </div>
+                        </td>
+                        @*}*@
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+@*<div class="text-white Add-New-Button">
+    <a asp-controller="Actors" asp-action="Create" class="btn btn-success"><i class="uil uil-plus-circle"></i> Add New</a>
+</div>*@
+
+@await Html.PartialAsync("_CreateItem", "Actors")

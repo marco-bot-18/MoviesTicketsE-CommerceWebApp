@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - e-Movie Tickets</title>
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.0/css/v4-shims.css">
+
     <!--==================== UNICONS CDN ====================-->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
@@ -31,29 +34,37 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Movies" asp-action="Index"><i class="uil uil-film"></i> Movies</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="uil uil-setting"></i> Management
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-controller="Cinemas" asp-action="Index"><i class="uil uil-camera"></i> Cinemas</a>
-                                <a class="dropdown-item" asp-controller="Producers" asp-action="Index"><i class="uil uil-headphones-alt"></i> Producers</a>
-                                <a class="dropdown-item" asp-controller="Actors" asp-action="Index"><i class="uil uil-users-alt"></i> Actors</a>
-                            </div>
-                        </li>
+
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="uil uil-setting"></i> Management
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="Cinemas" asp-action="Index"><i class="uil uil-camera"></i> Cinemas</a>
+                                    <a class="dropdown-item" asp-controller="Producers" asp-action="Index"><i class="uil uil-headphones-alt"></i> Producers</a>
+                                    <a class="dropdown-item" asp-controller="Actors" asp-action="Index"><i class="uil uil-users-alt"></i> Actors</a>
+                                </div>
+                            </li>
+                        }
+
                     </ul>
-
-                    <form class="d-flex" role="search" asp-controller="Movies" asp-action="Filter">
-                        <input class="form-control me-2" type="text" name="searchString" placeholder="Search a movie..." aria-label="Recipient's username">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-
-                    <ul class="navbar-nav">
-                        @*@await Component.InvokeAsync("ShoppingCartSummary")*@
-                    </ul>
-
-                    @*<partial name="_Identity.cshtml" />*@
                 </div>
+
+                <form class="d-flex" role="search" asp-controller="Movies" asp-action="Filter">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <input class="form-control me-2" type="text" name="searchString" placeholder="Search a movie..." aria-label="Recipient's username">
+                        <button class="btn btn-success text-white" type="submit"><i class="uil uil-search"></i></button>
+                    </div>
+                </form>
+
+                <ul class="navbar-nav d-flex">
+                    @await Component.InvokeAsync("ShoppingCartSummary")
+                </ul>
+
+                <partial name="_Identity.cshtml" />
+
             </div>
         </nav>
 
@@ -65,11 +76,17 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    @*<footer class="border-top footer text-muted" style="">
+    <div class="container">
+    &copy; 2022 - E-Tickets Movies
+    </div>
+    </footer>*@
+
+    <div class="footer">
         <div class="container">
             &copy; 2022 - E-Tickets Movies
         </div>
-    </footer>
+    </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

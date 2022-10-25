@@ -15,7 +15,11 @@
                             <p class="card-text">
                                 <h5 class="card-title">
                                     @item.Name
-                                    <a class="text-white float-end" asp-action="Edit" asp-route-id="@item.Id"><i class="uil uil-edit"></i></a>
+                                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                    {
+                                        <a class="text-white float-end" asp-action="Edit" asp-route-id="@item.Id"><i class="uil uil-edit"></i></a>
+                                    }
+
                                 </h5>
                             </p>
                         </div>
@@ -55,10 +59,11 @@
                                     <i class="uil uil-eye"></i> Show Details
                                 </a>
                                 <a class="btn btn-success text-white @((DateTime.Now > item.EndDate) ? "disabled" : "")"
-                               asp-controller="Orders"
-                               asp-action="AddItemToShoppingCart"
-                               asp-route-id="@item.Id">
-                                    <i class="uil uil-shopping-cart-alt"></i> Add to Cart (Price @item.Price.ToString("c"))
+                                    asp-controller="Orders"
+                                    asp-action="AddItemToShoppingCart"
+                                    asp-route-id="@item.Id">
+                                    <i class="fa fa-cart-plus"></i>
+                                    Add to Cart (Price @item.Price.ToString("c"))
                                 </a>
                             </p>
                         </div>

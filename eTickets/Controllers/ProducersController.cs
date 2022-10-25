@@ -1,11 +1,14 @@
 ﻿using eTickets.Data;
 using eTickets.Data.Services;
+using eTickets.Data.Static;
 using eTickets.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace eTickets.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin)]
     public class ProducersController : Controller
     {
         private readonly IProducersService _service;
@@ -14,6 +17,8 @@ namespace eTickets.Controllers
         {
           _service = service;
         }
+
+        [AllowAnonymous]
         public async Task <IActionResult> Index()
 
         {
@@ -21,7 +26,8 @@ namespace eTickets.Controllers
             return View(data);
         }
 
-        //GET: producers/details/1
+        //GET: Producers/Details/1
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var producerDetails = await _service.GetByIdAsync(id);
@@ -29,7 +35,7 @@ namespace eTickets.Controllers
             return View(producerDetails);
         }
 
-        //GET: producers/create
+        //GET: Producers/Create
         public IActionResult Create()
         {
             return View();
@@ -44,7 +50,7 @@ namespace eTickets.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //GET: producers/edit/1
+        //GET: Producers/Edit/1
         public async Task<IActionResult> Edit(int id)
         {
             var producerDetails = await _service.GetByIdAsync(id);
@@ -55,8 +61,6 @@ namespace eTickets.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, [Bind("Id,ProfilePictureURL,FullName,Bio")] Producer producer)
         {
-           
-
             if (id == producer.Id)
             {
                 await _service.UpdateAsync(id, producer);
@@ -65,7 +69,7 @@ namespace eTickets.Controllers
             return View(producer);
         }
 
-        //GET: producers/delete/1
+        //GET: Producers/Delete/1
         public async Task<IActionResult> Delete(int id)
         {
             var producerDetails = await _service.GetByIdAsync(id);

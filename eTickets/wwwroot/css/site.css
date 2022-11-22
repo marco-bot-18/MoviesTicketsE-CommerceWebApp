@@ -20,7 +20,6 @@ html {
 }
 
 body {
-    margin-bottom: 60px;
 }
 
 .Add-New-Button {
@@ -33,13 +32,10 @@ body {
     margin-top: 5rem;
 }
 
-.footer {
-    padding: 5px;
-    position: fixed;
-    left: 0;
+#footer {
+    position: absolute;
     bottom: 0;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    text-align: center;
+    padding: 2rem;
 }
+

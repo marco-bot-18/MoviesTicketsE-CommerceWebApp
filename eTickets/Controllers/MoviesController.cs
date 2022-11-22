@@ -1,11 +1,9 @@
-﻿using eTickets.Data;
-using eTickets.Data.Services;
+﻿using eTickets.Data.Services;
 using eTickets.Data.Static;
 using eTickets.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 
 namespace eTickets.Controllers
 {
@@ -25,7 +23,6 @@ namespace eTickets.Controllers
             var data = await _service.GetAllAsync(n => n.Cinema);
             return View(data);
         }
-
 
         //Search Movie String
         [AllowAnonymous]
@@ -112,7 +109,10 @@ namespace eTickets.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, NewMovieVM movie)
         {
-            if (id != movie.Id) return View("NotFound");
+            if (id != movie.Id)
+            {
+                return View("NotFound");
+            }
 
             if (!ModelState.IsValid)
             {

@@ -12,11 +12,11 @@ namespace eTickets.Models
         [Required (ErrorMessage ="Profile Picture is Require")]
         public string ProfilePictureURL { get; set; }
 
-
         [Display(Name = "Full Name")]
-        [Required(ErrorMessage = "Full Name is Require")]
-        [StringLength (50, MinimumLength = 3, ErrorMessage ="Full Name must be between 3 to 50 characters")]
+        [Required(ErrorMessage = "Full Name is Required")]
+        [StringLength (50, MinimumLength = 3, ErrorMessage = "Full Name must be between 3 to 50 characters")]
         public string FullName { get; set; }
+
         [Display(Name = "Biography")]
         public string Bio { get; set; }
         [Required(ErrorMessage = "Bio is Require")]
